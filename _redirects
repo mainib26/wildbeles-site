@@ -1,2 +1,2 @@
-# Redirect www to non-www
-https://www.wildbeles.com/* https://wildbeles.com/:splat 301
+# www redirect is handled at DNS level via CNAME
+# No static redirects needed at this time
