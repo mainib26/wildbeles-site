@@ -1,0 +1,2 @@
+# Redirect www to non-www
+https://www.wildbeles.com/* https://wildbeles.com/:splat 301

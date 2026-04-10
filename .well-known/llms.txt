@@ -1,0 +1,33 @@
+# Wild Beles
+
+> A software studio based in Dallas, TX that builds products from first principles.
+
+Wild Beles LLC is a software company that solves everyday problems by rethinking them from scratch. Founded in Dallas, Texas, the studio builds consumer and business software without copying existing solutions — every product starts from the problem itself.
+
+The name "Wild Beles" comes from the beles (prickly pear cactus fruit) native to Ethiopia and Eritrea. The fruit thrives in harsh, arid conditions and provides nourishment where little else grows. This reflects the company's approach: resilient, lean, and useful.
+
+## Products
+
+### Hamus
+A marketplace built for the Ethiopian and Eritrean diaspora. Users can buy, sell, find local businesses, and connect with their community. Available in English, Amharic, and Tigrinya. Mobile-first (iOS and Android).
+
+### Stacee
+An all-in-one AI-powered business tool for freelancers and solo service providers. Replaces separate booking, invoicing, CRM, and business card tools with a single platform. Web-based SaaS.
+
+### Battery Heroes
+An on-demand car battery delivery and installation service in the Dallas-Fort Worth Metroplex. Delivers and installs a new car battery wherever you are — usually within 2 hours. Flat $49 service fee, retail price on the battery.
+
+## Company Details
+
+- **Legal name:** Wild Beles LLC
+- **Location:** Dallas, TX, USA
+- **Website:** https://wildbeles.com
+- **Email:** hello@wildbeles.com
+- **Founded:** 2025
+
+## Principles
+
+1. First principles, always — we don't copy competitors
+2. Signal over noise — every feature earns its place
+3. Resilient by nature — lean, tough, nourishing software
+4. Ship, then improve — real users over whiteboards
