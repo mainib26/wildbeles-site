@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1200">
+  <title>Wild Beles — OG Image</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      width: 1200px;
+      height: 630px;
+      overflow: hidden;
+      background: #0F1117;
+      font-family: 'DM Sans', sans-serif;
+      position: relative;
+    }
+
+    /* Subtle noise texture */
+    body::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0.035;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 256px;
+      pointer-events: none;
+    }
+
+    /* Warm glow */
+    .glow {
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(212, 132, 90, 0.1) 0%, transparent 65%);
+      top: 50%;
+      right: 15%;
+      transform: translateY(-50%);
+    }
+
+    .glow-2 {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.04) 0%, transparent 60%);
+      bottom: 10%;
+      left: 20%;
+    }
+
+    /* Content */
+    .content {
+      position: relative;
+      z-index: 1;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      padding: 0 100px;
+      gap: 80px;
+    }
+
+    .left {
+      flex: 1;
+    }
+
+    .logo {
+      display: flex;
+      align-items: baseline;
+      gap: 7px;
+      margin-bottom: 36px;
+    }
+
+    .logo-wild {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 24px;
+      font-weight: 600;
+      color: #EDEDEF;
+      letter-spacing: -0.02em;
+    }
+
+    .logo-beles {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: 27px;
+      font-style: italic;
+      color: #D4845A;
+      letter-spacing: -0.01em;
+    }
+
+    .tagline {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: 64px;
+      font-weight: 400;
+      line-height: 1.05;
+      color: #EDEDEF;
+      letter-spacing: -0.025em;
+      margin-bottom: 24px;
+    }
+
+    .tagline em {
+      font-style: italic;
+      color: #D4845A;
+    }
+
+    .subtitle {
+      font-size: 18px;
+      color: #7A7D8A;
+      line-height: 1.5;
+      max-width: 380px;
+    }
+
+    .url {
+      margin-top: 32px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #484B58;
+      letter-spacing: 0.02em;
+    }
+
+    /* Beles illustration (right side) */
+    .right {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .beles-svg {
+      opacity: 0.15;
+      filter: drop-shadow(0 0 60px rgba(212, 132, 90, 0.1));
+    }
+
+    /* Bottom border accent */
+    .bottom-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #D4845A 0%, #3B82F6 50%, #D4845A 100%);
+      opacity: 0.6;
+    }
+  </style>
+</head>
+<body>
+  <div class="glow"></div>
+  <div class="glow-2"></div>
+
+  <div class="content">
+    <div class="left">
+      <div class="logo">
+        <span class="logo-wild">Wild</span>
+        <span class="logo-beles">Beles</span>
+      </div>
+      <h1 class="tagline">Software from<br><em>stubborn roots</em></h1>
+      <p class="subtitle">A software studio that solves everyday problems from first principles.</p>
+      <p class="url">wildbeles.com</p>
+    </div>
+
+    <div class="right">
+      <svg class="beles-svg" width="320" height="440" viewBox="0 0 400 520" fill="none">
+        <ellipse cx="200" cy="340" rx="120" ry="155" fill="#1A1C24" stroke="#262836" stroke-width="1.5"/>
+        <ellipse cx="200" cy="340" rx="90" ry="120" fill="none" stroke="#262836" stroke-width="0.75" opacity="0.5"/>
+        <line x1="200" y1="200" x2="200" y2="480" stroke="#262836" stroke-width="0.75" opacity="0.3"/>
+        <path d="M140 280 Q200 320 260 280" fill="none" stroke="#262836" stroke-width="0.75" opacity="0.25"/>
+        <path d="M130 340 Q200 380 270 340" fill="none" stroke="#262836" stroke-width="0.75" opacity="0.25"/>
+        <path d="M140 400 Q200 440 260 400" fill="none" stroke="#262836" stroke-width="0.75" opacity="0.25"/>
+        <ellipse cx="130" cy="195" rx="75" ry="100" transform="rotate(-18 130 195)" fill="#1A1C24" stroke="#262836" stroke-width="1.5"/>
+        <ellipse cx="130" cy="195" rx="50" ry="70" transform="rotate(-18 130 195)" fill="none" stroke="#262836" stroke-width="0.75" opacity="0.4"/>
+        <ellipse cx="275" cy="210" rx="68" ry="92" transform="rotate(15 275 210)" fill="#1A1C24" stroke="#262836" stroke-width="1.5"/>
+        <ellipse cx="275" cy="210" rx="45" ry="64" transform="rotate(15 275 210)" fill="none" stroke="#262836" stroke-width="0.75" opacity="0.4"/>
+        <ellipse cx="108" cy="90" rx="38" ry="54" transform="rotate(-25 108 90)" fill="#1A1C24" stroke="#262836" stroke-width="1.5"/>
+        <ellipse cx="300" cy="105" rx="34" ry="48" transform="rotate(20 300 105)" fill="#1A1C24" stroke="#262836" stroke-width="1.5"/>
+        <ellipse cx="190" cy="50" rx="22" ry="32" fill="#D4845A" opacity="0.5" transform="rotate(-8 190 50)"/>
+        <ellipse cx="220" cy="58" rx="18" ry="28" fill="#D4845A" opacity="0.35" transform="rotate(12 220 58)"/>
+        <ellipse cx="155" cy="68" rx="16" ry="24" fill="#D4845A" opacity="0.25" transform="rotate(-15 155 68)"/>
+        <line x1="200" y1="185" x2="200" y2="155" stroke="#7A7D8A" stroke-width="1" opacity="0.3"/>
+        <line x1="240" y1="200" x2="260" y2="178" stroke="#7A7D8A" stroke-width="1" opacity="0.25"/>
+        <line x1="160" y1="200" x2="140" y2="178" stroke="#7A7D8A" stroke-width="1" opacity="0.25"/>
+        <line x1="312" y1="160" x2="330" y2="142" stroke="#7A7D8A" stroke-width="1" opacity="0.2"/>
+        <line x1="85" y1="145" x2="68" y2="128" stroke="#7A7D8A" stroke-width="1" opacity="0.2"/>
+        <circle cx="170" cy="280" r="2.5" fill="#484B58" opacity="0.3"/>
+        <circle cx="230" cy="300" r="2.5" fill="#484B58" opacity="0.3"/>
+        <circle cx="200" cy="380" r="2.5" fill="#484B58" opacity="0.3"/>
+        <circle cx="145" cy="170" r="2.5" fill="#484B58" opacity="0.25"/>
+        <circle cx="260" cy="185" r="2.5" fill="#484B58" opacity="0.25"/>
+        <circle cx="290" cy="230" r="2.5" fill="#484B58" opacity="0.25"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="bottom-bar"></div>
+</body>
+</html>
