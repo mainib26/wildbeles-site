@@ -27,22 +27,22 @@
         <span class="nav__wordmark">indiyamo</span>
       </a>
       <nav class="nav__links" aria-label="Main navigation">
+        <a href="../">Home</a>
         <a href="../#how-it-works">How it works</a>
-        <a href="../#indy">Meet Indy</a>
         <a href="../#competition">Competition</a>
-        <a href="../#early-access">Early access</a>
+        <a href="#watch">Demo</a>
       </nav>
       <div class="nav__actions">
         <button class="nav__theme-toggle" data-theme-toggle aria-label="Switch to dark mode">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
         </button>
-        <a href="../" class="btn btn--primary btn--sm">Open product</a>
+        <a href="../" class="btn btn--line btn--sm">← Home</a>
       </div>
     </div>
   </header>
 
   <main>
-    <section class="demo-hero">
+    <section class="demo-hero demo-hero--theater" id="watch">
       <div class="demo-hero__bg">
         <img src="../assets/splash.jpg?v=20260527-real" alt="" />
       </div>
@@ -52,13 +52,29 @@
             <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
             Perplexity Billion Dollar Build 2026
           </span>
-          <h1>From group chat chaos to a trip that's actually ready.</h1>
-          <p>Indiyamo helps solo travelers, families, and groups move from vague plans to real trips with a proactive AI copilot.</p>
-          <div class="demo-hero__actions">
-            <a href="#walkthrough" class="btn btn--hero">Watch demo</a>
-            <a href="https://www.wildbeles.com/indiyamo/" class="btn btn--ghost">Open product</a>
-          </div>
+          <h1>Watch Indiyamo turn group-chat chaos into a trip that's ready.</h1>
+          <p>The 2-minute walkthrough — solo travelers, families, and groups going from vague plans to a real trip with Indy, the proactive AI copilot.</p>
         </div>
+
+        <figure class="demo-theater">
+          <div class="demo-video__stage" data-demo-stage>
+            <video controls preload="metadata" playsinline poster="../assets/indiyamo-demo-poster.jpg?v=20260603" data-demo-video>
+              <source src="../assets/indiyamo-demo.mp4?v=20260603" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+            <button class="demo-video__play" type="button" data-demo-play aria-label="Play the Indiyamo demo">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="34" height="34"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+            <div class="demo-video__placeholder">
+              <span>Loading demo…</span>
+              <strong>The 2-minute Indiyamo walkthrough</strong>
+            </div>
+          </div>
+          <figcaption class="demo-theater__caption">
+            <span class="eyebrow">2-minute product walkthrough</span>
+            <a href="../assets/indiyamo-demo.mp4" class="demo-video__direct">Open the direct video file →</a>
+          </figcaption>
+        </figure>
       </div>
     </section>
 
@@ -68,29 +84,6 @@
           <span class="eyebrow">The problem</span>
           <h2>Planning a trip sounds fun. Actually getting one over the line isn't.</h2>
           <p>Trips fall apart in group chats, saved links, half-made decisions, missing details, and "we'll figure it out later." One person usually ends up doing the work, but consumer travel tools still behave like search engines, not copilots.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section demo-walkthrough" id="walkthrough">
-      <div class="container">
-        <div class="demo-video">
-          <div class="demo-video__stage">
-            <video controls preload="metadata" poster="../assets/splash2.jpg?v=20260527-real" data-demo-video>
-              <source src="../assets/indiyamo-demo.mp4" type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
-            <div class="demo-video__placeholder">
-              <span>Demo video slot</span>
-              <strong>Upload the final 2-minute MP4 as assets/indiyamo-demo.mp4</strong>
-            </div>
-          </div>
-          <div class="demo-video__meta">
-            <span class="eyebrow">Product walkthrough</span>
-            <h2>Watch Indiyamo finish the trip.</h2>
-            <p>The 2-minute demo shows the messy planning work before booking, the live product workflow, and Indy, the AI copilot Computer helped us build.</p>
-            <a href="../assets/indiyamo-demo.mp4" class="demo-video__direct">Direct video file</a>
-          </div>
         </div>
       </div>
     </section>
@@ -128,7 +121,7 @@
           <span class="eyebrow">Why this matters</span>
           <h2>Most travel tools help you search. Very few help you coordinate, decide, and follow through.</h2>
           <p>That gap gets worse for families and groups, where one missed detail can stall the whole trip. Indiyamo is built for that messy middle between "we should go somewhere" and "we're ready."</p>
-          <a href="#walkthrough" class="btn btn--primary">Watch the 2-minute demo</a>
+          <a href="#watch" class="btn btn--primary">Watch the 2-minute demo</a>
         </div>
       </div>
     </section>
@@ -164,7 +157,7 @@
           <p class="footer__tagline">Travel Together. Remember Forever.</p>
         </div>
         <div class="footer__links">
-          <a href="../">Product</a>
+          <a href="../">Home</a>
           <span class="footer__sep">·</span>
           <a href="https://github.com/mainib26/indiyamo-mobile" target="_blank" rel="noopener">GitHub</a>
           <span class="footer__sep">·</span>
@@ -181,9 +174,27 @@
       if (!video) return;
       var stage = video.closest('.demo-video__stage');
       if (!stage) return;
+      var theater = video.closest('.demo-theater');
+      var playBtn = stage.querySelector('[data-demo-play]');
+
+      // Reveal the play affordance once the file is confirmed loadable, and let
+      // the stage adapt to the video's real orientation (this demo is a vertical
+      // phone recording, so it renders as a centered phone frame).
       video.addEventListener('loadedmetadata', function () {
         stage.classList.add('is-ready');
+        if (theater && video.videoHeight > video.videoWidth) {
+          theater.classList.add('is-portrait');
+        }
       });
+      if (playBtn) {
+        playBtn.addEventListener('click', function () {
+          var started = video.play();
+          if (started && typeof started.catch === 'function') started.catch(function () {});
+        });
+      }
+      video.addEventListener('play', function () { stage.classList.add('is-playing'); });
+      video.addEventListener('pause', function () { stage.classList.remove('is-playing'); });
+      video.addEventListener('ended', function () { stage.classList.remove('is-playing'); });
     })();
   </script>
 </body>
