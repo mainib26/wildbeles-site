@@ -390,3 +390,45 @@ em { font-style: italic; }
   .shot { width: 200px; }
   .hero__headline { font-size: clamp(2.3rem, 11vw, 3rem); }
 }
+
+/* ============================================================
+   LEGAL PAGES (privacy / terms)
+   Reuses the brand tokens above; long-form, readable column.
+   ============================================================ */
+.legal { padding: clamp(36px, 6vw, 64px) 0 clamp(56px, 9vw, 96px); }
+.legal__wrap { max-width: 760px; margin-inline: auto; padding-inline: 24px; }
+
+.legal__top {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  gap: 14px; margin-bottom: clamp(22px, 4vw, 38px);
+}
+.legal h1 { font-size: clamp(2.1rem, 5vw, 3.1rem); margin-top: 6px; }
+.legal__updated { color: var(--ink-faint); font-size: .9rem; font-weight: 600; margin: 12px 0 0; }
+.legal__lead { font-size: 1.12rem; color: var(--ink); margin: 22px 0 0; }
+
+/* document body */
+.legal__doc { font-size: 1.04rem; }
+.legal__doc h2 {
+  font-size: 1.5rem; margin: 38px 0 12px; color: var(--teal-deep); scroll-margin-top: 90px;
+}
+[data-theme="dark"] .legal__doc h2 { color: var(--teal); }
+.legal__doc h3 {
+  font-family: var(--font-body); font-size: 1.04rem; font-weight: 700;
+  margin: 22px 0 8px; color: var(--ink);
+}
+.legal__doc p, .legal__doc li { color: var(--ink-soft); margin: 0 0 14px; }
+.legal__doc ul { padding-left: 22px; margin: 0 0 18px; }
+.legal__doc li { margin-bottom: 8px; }
+.legal__doc strong { color: var(--ink); }
+.legal__doc em { font-style: italic; }
+.legal__doc a { color: var(--teal); text-decoration: underline; text-underline-offset: 2px; }
+.legal__doc a:hover { color: var(--teal-deep); }
+[data-theme="dark"] .legal__doc a:hover { color: var(--gold); }
+
+/* callout + notice boxes */
+.callout {
+  background: color-mix(in srgb, var(--teal) 10%, var(--surface));
+  border: 1px solid color-mix(in srgb, var(--teal) 28%, transparent);
+  border-radius: var(--radius); padding: 16px 18px; margin: 20px 0;
+}
+.callout p { margin: 0; color: var(--ink); }
