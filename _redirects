@@ -1,2 +1,5 @@
 # www redirect is handled at DNS level via CNAME
-# No static redirects needed at this time
+
+# Hamus business claim landing: every /hamus/business/<id> serves the page,
+# which reads the id client-side and fetches the business.
+/hamus/business/*  /hamus/business/index.html  200
