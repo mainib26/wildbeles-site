@@ -1,5 +1,6 @@
 # www redirect is handled at DNS level via CNAME
-
-# Hamus business claim landing: every /hamus/business/<id> serves the page,
-# which reads the id client-side and fetches the business.
-/hamus/business/*  /hamus/business/index.html  200
+#
+# Hamus business claim landing is served directly at /hamus/business/
+# (index.html), with the business id in ?id=<uuid>. No rewrite rule: a
+# /hamus/business/* -> /hamus/business/index.html 200 rule loops with
+# Cloudflare's clean-URL (.html // /index) stripping and fails the build.

@@ -1,0 +1,7 @@
+# Files NOT to publish as static assets (Cloudflare Workers static build,
+# assets directory = repo root). Keeps .git and build junk off wildbeles.com.
+.git
+.wrangler
+node_modules
+.DS_Store
+**/.DS_Store
