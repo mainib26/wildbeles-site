@@ -116,8 +116,11 @@
   function $(id){ return document.getElementById(id); }
   function el(tag, cls, text){ var e = document.createElement(tag); if(cls) e.className = cls; if(text!=null) e.textContent = text; return e; }
 
-  var m = location.pathname.match(/\/business\/([A-Za-z0-9-]+)/);
-  var id = m ? m[1] : null;
+  // id from ?id=<uuid> (robust: /hamus/business/ is a real index.html served
+  // as text/html) or from a /hamus/business/<uuid> path (needs the _redirects
+  // rewrite; kept as a fallback).
+  var id = new URLSearchParams(location.search).get('id');
+  if (!id) { var m = location.pathname.match(/\/business\/([A-Za-z0-9-]+)/); id = m ? m[1] : null; }
 
   function storeBtn(href, small, big) {
     var a = el('a', 'btn btn-store'); a.href = href;
