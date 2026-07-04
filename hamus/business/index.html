@@ -64,6 +64,14 @@
     font-size: 13.5px; line-height: 1.15; }
   .btn-store small { display: block; font-size: 10px; font-weight: 500; opacity: .7; letter-spacing: .04em; }
   .btn-store b { font-size: 15px; font-weight: 700; }
+  .btn-store-solo { width: 100%; }
+  .soon {
+    background: #F1EEE4; border: 1px solid var(--line); border-radius: 13px;
+    padding: 16px 18px; text-align: center;
+  }
+  .soon-title { font-weight: 700; font-size: 15px; color: var(--ink); }
+  .soon-body { margin-top: 5px; font-size: 13px; color: var(--ink-soft); line-height: 1.45; }
+  .hint { margin: 4px 2px 0; font-size: 12px; color: var(--ink-soft); line-height: 1.45; text-align: center; }
   .claim { text-align: center; padding: 4px 24px 26px; color: var(--ink-soft); font-size: 13.5px; }
   .claim b { color: var(--green-deep); }
   .foot { text-align: center; margin-top: 20px; font-size: 12px; color: var(--ink-soft); }
@@ -91,13 +99,7 @@
         <h2>Services &amp; Products</h2>
         <div class="offerings" id="offerings"></div>
       </div>
-      <div class="actions">
-        <a class="btn btn-primary" id="openBtn" href="#">Open in Hamus</a>
-        <div class="stores">
-          <a class="btn btn-store" href="https://apps.apple.com/app/id6759566316"><small>Download on the</small><b>App Store</b></a>
-          <a class="btn btn-store" href="https://play.google.com/store/apps/details?id=app.hamus.wildbeles"><small>Get it on</small><b>Google Play</b></a>
-        </div>
-      </div>
+      <div class="actions" id="actions"></div>
       <p class="claim"><b>Is this your business?</b> Open it in the Hamus app to claim it free and manage your page.</p>
     </div>
 
@@ -128,6 +130,34 @@
     a.appendChild(el('b', null, big));
     return a;
   }
+  function isAndroid() { return /Android/i.test(navigator.userAgent || ''); }
+  function isIOS() {
+    var ua = navigator.userAgent || '';
+    return /iPhone|iPad|iPod/i.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  }
+  // Right "get the app" affordance per device. Android has no app yet, so show
+  // a "coming soon" note instead of a dead Google Play button.
+  function renderActions(box, id) {
+    while (box.firstChild) box.removeChild(box.firstChild);
+    if (isAndroid()) {
+      var card = el('div', 'soon');
+      card.appendChild(el('div', 'soon-title', '🤖  Coming to Android soon'));
+      card.appendChild(el('div', 'soon-body', 'Hamus is on iPhone for now — the Android app is on the way.'));
+      box.appendChild(card);
+      return;
+    }
+    if (isIOS() && id) {
+      var open = el('a', 'btn btn-primary'); open.href = 'hamus://business/' + id;
+      open.textContent = 'Open in Hamus';
+      box.appendChild(open);
+    }
+    var store = storeBtn('https://apps.apple.com/app/id6759566316', 'Download on the', 'App Store');
+    store.classList.add('btn-store-solo');
+    box.appendChild(store);
+    if (!isIOS()) {
+      box.appendChild(el('p', 'hint', 'Hamus is an iPhone app — open this link on your iPhone, or search "Hamus" on the App Store.'));
+    }
+  }
   // No specific business (root / unknown path) — a plain "get the app" state.
   function showApp() {
     $('card').hidden = true;
@@ -135,10 +165,9 @@
     var s = el('div', 'state');
     var h = el('h2', null, 'The Eritrean & Ethiopian community marketplace');
     h.style.cssText = 'font-family:Georgia,serif;color:var(--ink);font-weight:600';
-    var stores = el('div', 'stores'); stores.style.marginTop = '18px';
-    stores.appendChild(storeBtn('https://apps.apple.com/app/id6759566316', 'Download on the', 'App Store'));
-    stores.appendChild(storeBtn('https://play.google.com/store/apps/details?id=app.hamus.wildbeles', 'Get it on', 'Google Play'));
-    s.appendChild(h); s.appendChild(stores);
+    var box = el('div', 'actions'); box.style.marginTop = '18px';
+    renderActions(box, null);
+    s.appendChild(h); s.appendChild(box);
     $('loading').replaceWith(s);
   }
 
@@ -164,8 +193,7 @@
       b.offerings.slice(0, 24).forEach(function(o){ box.appendChild(el('span','offer', o)); });
     }
 
-    var open = $('openBtn');
-    open.addEventListener('click', function(e){ e.preventDefault(); window.location.href = 'hamus://business/' + id; });
+    renderActions($('actions'), id);
 
     $('loading').hidden = true;
     $('card').hidden = false;
