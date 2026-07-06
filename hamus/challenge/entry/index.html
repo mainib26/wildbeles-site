@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Vote on Hamus</title>
+<meta name="description" content="Vote for this entry in the Hamus community challenge." />
+<meta property="og:title" content="Vote for my entry on Hamus" />
+<meta property="og:description" content="Help me win the Hamus challenge — download the app and vote." />
+<meta property="og:image" content="https://wildbeles.com/og-image.png" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary_large_image" />
+<style>
+  :root { --ground:#F6F1E7; --ground-2:#FBF8F1; --ink:#2B2420; --ink-soft:#6E635A;
+    --green-deep:#164438; --gold:#C6A14A; --terra:#C15A2E; --tint:#E9EFE9; --line:#E4DBC9; --shadow:0 18px 44px -22px rgba(43,36,32,.45); }
+  * { box-sizing:border-box; }
+  body { margin:0; color:var(--ink);
+    background: radial-gradient(1200px 500px at 50% -10%, rgba(30,91,75,.08), transparent 60%), var(--ground);
+    font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; -webkit-font-smoothing:antialiased;
+    display:flex; justify-content:center; padding:28px 18px 40px; min-height:100vh; }
+  .wrap { width:100%; max-width:448px; }
+  .eyebrow { display:flex; align-items:center; gap:9px; justify-content:center; font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-soft); font-weight:600; margin-bottom:18px; }
+  .eyebrow .mark { width:22px; height:22px; border-radius:6px; background:var(--terra); color:var(--ground-2); display:grid; place-items:center; font-family:Georgia,serif; font-size:14px; font-weight:700; }
+  .card { background:var(--ground-2); border:1px solid var(--line); border-radius:20px; overflow:hidden; box-shadow:var(--shadow); }
+  .hero { width:100%; aspect-ratio:4/3; object-fit:cover; background:var(--tint); display:block; }
+  .hero-empty { width:100%; aspect-ratio:4/3; background:linear-gradient(160deg,var(--terra),#8A3423); display:grid; place-items:center; color:#F7F3E8; font-size:64px; }
+  .body { padding:20px 24px 8px; text-align:center; }
+  .who { font-family:Georgia,serif; font-weight:600; font-size:24px; margin:0; }
+  .stat { color:var(--ink-soft); font-size:14px; margin:8px 0 0; }
+  .stat b { color:var(--green-deep); }
+  .chal { margin:14px auto 0; padding:12px 16px; background:#fff; border:1px solid var(--line); border-radius:13px; }
+  .chal .t { font-weight:700; font-size:15px; } .chal .p { color:var(--terra); font-weight:700; font-size:13.5px; margin-top:3px; }
+  .actions { padding:18px 24px 8px; display:grid; gap:11px; }
+  .btn { display:flex; align-items:center; justify-content:center; gap:9px; padding:15px 18px; border-radius:13px; font-size:16px; font-weight:700; text-decoration:none; border:1px solid transparent; }
+  .btn-primary { background:var(--terra); color:#FDF7EF; box-shadow:0 10px 22px -12px rgba(193,90,46,.8); }
+  .btn-store { background:var(--ink); color:var(--ground-2); padding:12px 10px; border-radius:12px; font-size:13.5px; line-height:1.15; width:100%; text-align:center; }
+  .btn-store small { display:block; font-size:10px; font-weight:500; opacity:.7; } .btn-store b { font-size:15px; font-weight:700; }
+  .soon { background:#F1EEE4; border:1px solid var(--line); border-radius:13px; padding:16px 18px; text-align:center; }
+  .soon-title { font-weight:700; font-size:15px; } .soon-body { margin-top:5px; font-size:13px; color:var(--ink-soft); }
+  .hint { margin:4px 2px 0; font-size:12px; color:var(--ink-soft); text-align:center; }
+  .foot { text-align:center; margin-top:20px; font-size:12px; color:var(--ink-soft); } .foot .dot { color:var(--gold); }
+  .state { text-align:center; padding:60px 20px; color:var(--ink-soft); }
+  [hidden] { display:none !important; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="eyebrow"><span class="mark">ሓ</span> <span>Hamus Challenge</span></div>
+    <div id="loading" class="state">Loading…</div>
+    <div id="card" class="card" hidden>
+      <div id="heroWrap"></div>
+      <div class="body">
+        <p class="who" id="who"></p>
+        <p class="stat" id="stat"></p>
+        <div class="chal"><div class="t" id="chalTitle"></div><div class="p" id="chalPrize"></div></div>
+      </div>
+      <div class="actions" id="actions"></div>
+      <p class="hint" style="padding:0 24px 22px">Voting happens in the app — one vote per person.</p>
+    </div>
+    <div class="foot">Hamus <span class="dot">·</span> the Eritrean &amp; Ethiopian community marketplace</div>
+  </div>
+<script>
+  var SUPABASE_URL='https://avboayslfyoaqtmwbmjd.supabase.co';
+  var PUBLISHABLE_KEY='sb_publishable_qhIsC7y-Wi-zvu1YskZjtg_fm7ogabd';
+  function $(id){ return document.getElementById(id); }
+  function el(t,c,x){ var e=document.createElement(t); if(c) e.className=c; if(x!=null) e.textContent=x; return e; }
+  function isAndroid(){ return /Android/i.test(navigator.userAgent||''); }
+  function isIOS(){ var u=navigator.userAgent||''; return /iPhone|iPad|iPod/i.test(u)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1); }
+  function storeBtn(){ var a=el('a','btn btn-store'); a.href='https://apps.apple.com/app/id6759566316'; a.appendChild(el('small',null,'Download on the')); a.appendChild(el('b',null,'App Store')); return a; }
+  function renderActions(box, challengeId){
+    while(box.firstChild) box.removeChild(box.firstChild);
+    if(isAndroid()){ var s=el('div','soon'); s.appendChild(el('div','soon-title','🤖  Coming to Android soon'));
+      s.appendChild(el('div','soon-body','Hamus is on iPhone for now — the Android app is on the way.')); box.appendChild(s); return; }
+    if(isIOS() && challengeId){ var open=el('a','btn btn-primary'); open.href='hamus://challenges/'+challengeId; open.textContent='Open in Hamus to vote'; box.appendChild(open); }
+    box.appendChild(storeBtn());
+    if(!isIOS()) box.appendChild(el('p','hint','Hamus is an iPhone app — open this on your iPhone, or search "Hamus" on the App Store.'));
+  }
+  var id=new URLSearchParams(location.search).get('id');
+  function render(e){
+    if(!e){ $('loading').textContent='Entry not found.'; return; }
+    var author=e.author||'Someone';
+    document.title=author+' · Hamus Challenge';
+    var hw=$('heroWrap');
+    if(e.image){ var im=document.createElement('img'); im.className='hero'; im.src=e.image; im.alt=''; hw.appendChild(im); }
+    else { var d=el('div','hero-empty','🍲'); hw.appendChild(d); }
+    $('who').textContent = 'Vote for ' + author;
+    var stat=$('stat'); stat.textContent='Currently ';
+    stat.appendChild(el('b', null, '#'+(e.rank||'—')));
+    stat.appendChild(document.createTextNode(' · '+(e.votes||0)+' votes'));
+    var c=e.challenge||{}; $('chalTitle').textContent=c.title||'Challenge'; $('chalPrize').textContent='🏆 '+(c.prize||'');
+    renderActions($('actions'), c.id);
+    $('loading').hidden=true; $('card').hidden=false;
+  }
+  if(!id){ $('loading').textContent='No entry specified.'; }
+  else {
+    fetch(SUPABASE_URL+'/rest/v1/rpc/public_challenge_entry_view', {
+      method:'POST', headers:{ apikey:PUBLISHABLE_KEY, 'Content-Type':'application/json' }, body: JSON.stringify({ p_entry_id: id })
+    }).then(function(r){ return r.ok?r.json():null; }).then(render).catch(function(){ $('loading').textContent='Could not load.'; });
+  }
+</script>
+</body>
+</html>
