@@ -66,14 +66,13 @@
   function el(t,c,x){ var e=document.createElement(t); if(c) e.className=c; if(x!=null) e.textContent=x; return e; }
   function isAndroid(){ return /Android/i.test(navigator.userAgent||''); }
   function isIOS(){ var u=navigator.userAgent||''; return /iPhone|iPad|iPod/i.test(u)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1); }
-  function storeBtn(){ var a=el('a','btn btn-store'); a.href='https://apps.apple.com/app/id6759566316'; a.appendChild(el('small',null,'Download on the')); a.appendChild(el('b',null,'App Store')); return a; }
+  function storeBtn(android){ var a=el('a','btn btn-store'); a.href = android ? 'https://play.google.com/store/apps/details?id=app.hamus.wildbeles' : 'https://apps.apple.com/app/id6759566316'; a.appendChild(el('small',null, android ? 'Get it on' : 'Download on the')); a.appendChild(el('b',null, android ? 'Google Play' : 'App Store')); return a; }
   function renderActions(box, challengeId){
     while(box.firstChild) box.removeChild(box.firstChild);
-    if(isAndroid()){ var s=el('div','soon'); s.appendChild(el('div','soon-title','🤖  Coming to Android soon'));
-      s.appendChild(el('div','soon-body','Hamus is on iPhone for now — the Android app is on the way.')); box.appendChild(s); return; }
-    if(isIOS() && challengeId){ var open=el('a','btn btn-primary'); open.href='hamus://challenges/'+challengeId; open.textContent='Open in Hamus to vote'; box.appendChild(open); }
-    box.appendChild(storeBtn());
-    if(!isIOS()) box.appendChild(el('p','hint','Hamus is an iPhone app — open this on your iPhone, or search "Hamus" on the App Store.'));
+    var android=isAndroid(), ios=isIOS();
+    if((ios||android) && challengeId){ var open=el('a','btn btn-primary'); open.href='hamus://challenges/'+challengeId; open.textContent='Open in Hamus to vote'; box.appendChild(open); }
+    box.appendChild(storeBtn(android));
+    if(!ios && !android) box.appendChild(el('p','hint','Hamus is on iPhone & Android — open this on your phone, or search "Hamus" in the App Store or Google Play.'));
   }
   var id=new URLSearchParams(location.search).get('id');
   function render(e){

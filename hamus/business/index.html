@@ -135,27 +135,23 @@
     var ua = navigator.userAgent || '';
     return /iPhone|iPad|iPod/i.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   }
-  // Right "get the app" affordance per device. Android has no app yet, so show
-  // a "coming soon" note instead of a dead Google Play button.
+  // Right "get the app" affordance per device: deep-link into the app on a phone
+  // that has it, and show the store button for that platform (Play on Android).
   function renderActions(box, id) {
     while (box.firstChild) box.removeChild(box.firstChild);
-    if (isAndroid()) {
-      var card = el('div', 'soon');
-      card.appendChild(el('div', 'soon-title', '🤖  Coming to Android soon'));
-      card.appendChild(el('div', 'soon-body', 'Hamus is on iPhone for now — the Android app is on the way.'));
-      box.appendChild(card);
-      return;
-    }
-    if (isIOS() && id) {
+    var android = isAndroid(), ios = isIOS();
+    if ((ios || android) && id) {
       var open = el('a', 'btn btn-primary'); open.href = 'hamus://business/' + id;
       open.textContent = 'Open in Hamus';
       box.appendChild(open);
     }
-    var store = storeBtn('https://apps.apple.com/app/id6759566316', 'Download on the', 'App Store');
+    var store = android
+      ? storeBtn('https://play.google.com/store/apps/details?id=app.hamus.wildbeles', 'Get it on', 'Google Play')
+      : storeBtn('https://apps.apple.com/app/id6759566316', 'Download on the', 'App Store');
     store.classList.add('btn-store-solo');
     box.appendChild(store);
-    if (!isIOS()) {
-      box.appendChild(el('p', 'hint', 'Hamus is an iPhone app — open this link on your iPhone, or search "Hamus" on the App Store.'));
+    if (!ios && !android) {
+      box.appendChild(el('p', 'hint', 'Hamus is on iPhone & Android — open this link on your phone, or search "Hamus" in the App Store or Google Play.'));
     }
   }
   // No specific business (root / unknown path) — a plain "get the app" state.
