@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Hamus Challenge</title>
 <meta name="description" content="Vote in the Hamus community challenge." />
-<meta property="og:title" content="The Doro Wot Challenge — who makes the best?" />
-<meta property="og:description" content="Post your doro wot, the community votes — winner takes a whole chicken + 12 eggs. Free on Hamus. Ends Aug 5." />
+<meta property="og:title" content="The Shiro Challenge — who makes the best?" />
+<meta property="og:description" content="Post your shiro, the community votes — winner takes 1 lb shiro, 1 lb berbere + a clay pot. Free on Hamus. Ends Aug 5." />
 <!-- ✎ campaign og:image — update per challenge -->
-<meta property="og:image" content="https://wildbeles.com/hamus/challenge/assets/doro-wot-cover.png" />
+<meta property="og:image" content="https://wildbeles.com/hamus/challenge/assets/shiro-cover.png" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary_large_image" />
 <style>
@@ -34,6 +34,7 @@
   .cover h1 { font-family: Georgia, "Times New Roman", serif; font-weight: 600; font-size: clamp(28px, 8vw, 38px); line-height: 1.06; margin: 0; text-wrap: balance; }
   .rule { width: 46px; height: 3px; border-radius: 3px; background: var(--gold); margin: 15px auto 13px; }
   .cover .prize { font-style: italic; color: rgba(247,243,232,.92); font-size: 15px; margin: 0; font-family: Georgia, serif; }
+  .cover .prizenote { font-size: 11.5px; color: rgba(247,243,232,.72); margin: 10px auto 0; max-width: 320px; line-height: 1.45; }
   .prompt { padding: 16px 22px 6px; font-size: 14px; color: var(--ink-soft); text-align: center; line-height: 1.5; }
   .board { padding: 8px 18px 4px; display: grid; gap: 9px; }
   .entry { display: flex; align-items: center; gap: 12px; background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 9px 12px; }
@@ -68,12 +69,13 @@
         <h1 id="title"></h1>
         <div class="rule"></div>
         <p class="prize" id="prize"></p>
+        <p class="prizenote" id="prizenote" hidden></p>
       </div>
       <p class="prompt" id="prompt"></p>
       <div class="board" id="board"></div>
       <div class="count" id="count"></div>
       <div class="actions" id="actions"></div>
-      <p class="hint" style="padding:0 24px 22px">Voting happens in the app — one vote per person.</p>
+      <p class="hint" style="padding:0 24px 22px">Voting happens in the app — one vote per person. <a href="./rules/" style="color:inherit">Official rules</a>.</p>
     </div>
     <div class="foot">Hamus <span class="dot">·</span> the Eritrean &amp; Ethiopian community marketplace</div>
   </div>
@@ -112,6 +114,7 @@
     $('deadline').textContent = c.status==='winner_confirmed' ? 'Winner announced' : daysLeft(c.ends_at);
     $('title').textContent = c.title;
     $('prize').textContent = '🏆 ' + c.prize;
+    if(c.prize_note){ $('prizenote').textContent = c.prize_note; $('prizenote').hidden = false; }
     $('prompt').textContent = c.prompt;
     var board=$('board'); var entries=c.entries||[];
     entries.slice(0,20).forEach(function(e,i){
