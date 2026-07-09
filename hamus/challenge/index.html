@@ -5,9 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Hamus Challenge</title>
 <meta name="description" content="Vote in the Hamus community challenge." />
-<meta property="og:title" content="Vote in the Hamus Challenge" />
-<meta property="og:description" content="See the entries and vote for your favorite — Hamus, the Eritrean & Ethiopian community marketplace." />
-<meta property="og:image" content="https://wildbeles.com/og-image.png" />
+<meta property="og:title" content="The Doro Wot Challenge — who makes the best?" />
+<meta property="og:description" content="Post your doro wot, the community votes — winner takes a whole chicken + 12 eggs. Free on Hamus. Ends Aug 5." />
+<!-- ✎ campaign og:image — update per challenge -->
+<meta property="og:image" content="https://wildbeles.com/hamus/challenge/assets/doro-wot-cover.png" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary_large_image" />
 <style>
@@ -101,6 +102,13 @@
   function render(c){
     if(!c){ $('loading').textContent = 'Challenge not found.'; return; }
     document.title = c.title + ' · Hamus Challenge';
+    // Campaign cover art (challenges.cover_image_url) as the hero, with a dark
+    // wash so the white text stays readable over any image.
+    if(c.cover){
+      var cv=document.querySelector('.cover');
+      cv.style.backgroundImage='linear-gradient(rgba(12,42,37,.45), rgba(12,42,37,.66)), url("'+c.cover+'")';
+      cv.style.backgroundSize='cover'; cv.style.backgroundPosition='center';
+    }
     $('deadline').textContent = c.status==='winner_confirmed' ? 'Winner announced' : daysLeft(c.ends_at);
     $('title').textContent = c.title;
     $('prize').textContent = '🏆 ' + c.prize;
